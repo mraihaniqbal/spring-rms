@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/main}">
+    <head>
+         <title>Profile</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="row">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>First Name</th>
+                        <td th:text="${profile.firstName}"/>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td th:text="${profile.lastName}"/>
+                    </tr>
+                    <tr>
+                        <th>Email Address</th>
+                        <td th:text="${profile.email}"/>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td th:text="${profile.address}"/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
