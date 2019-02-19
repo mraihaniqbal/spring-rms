@@ -26,7 +26,7 @@ public class AuthController {
         return "/auth/login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login-submit")
     public String submitLogin(@RequestBody String username, @RequestBody String password,
                               RedirectAttributes redirectAttributes, HttpSession session){
 
