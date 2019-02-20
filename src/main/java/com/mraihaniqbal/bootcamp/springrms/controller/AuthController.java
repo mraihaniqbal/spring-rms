@@ -5,8 +5,8 @@ import com.mraihaniqbal.bootcamp.springrms.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -23,11 +23,11 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginForm(){
-        return "/auth/login";
+        return "/login";
     }
 
     @PostMapping("/login-submit")
-    public String submitLogin(@RequestBody String username, @RequestBody String password,
+    public String submitLogin(@ModelAttribute("username") String username, @ModelAttribute("password") String password,
                               RedirectAttributes redirectAttributes, HttpSession session){
 
         ResponseMap responseMap = authService.login(username,password, session);
@@ -37,13 +37,15 @@ public class AuthController {
             path = "redirect:/login";
         }
 
-        redirectAttributes.addAttribute("responseMap", responseMap);
+        redirectAttributes.addAttribute("message", responseMap.getMessage());
         return path;
     }
 
     @GetMapping("/logout")
-    public String logout(){
-        authService.logout();
-        return "/";
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes){
+        ResponseMap responseMap = authService.logout(session);
+        redirectAttributes.addAttribute("message", responseMap.getMessage());
+
+        return "redirect:/login";
     }
 }

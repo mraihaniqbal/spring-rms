@@ -1,9 +1,8 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
-import com.mraihaniqbal.bootcamp.springrms.enums.UserRoleEnum;
-
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class User {
@@ -12,18 +11,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 50,name = "user_name")
+    @Column(length = 50)
     private String username;
 
     @Column(length = 100)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private UserRoleEnum role;
-
     @OneToOne
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_authorities",
+            joinColumns = {
+                @JoinColumn(name = "authorities_id", nullable = false)
+            },
+            inverseJoinColumns = {
+                @JoinColumn(name = "user_id", nullable = false)
+            })
+    private List<Authorities> authorities;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_project",
@@ -75,19 +81,23 @@ public class User {
         this.userProfile = userProfile;
     }
 
-    public UserRoleEnum getRole() {
-        return role;
-    }
-
-    public void setRole(UserRoleEnum role) {
-        this.role = role;
-    }
-
     public List<Project> getProjects() {
         return projects;
     }
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public List<Authorities> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authorities> authorities) {
+        this.authorities = authorities;
+    }
+
+    public String getAuthoritiesString(){
+        return authorities.stream().map(a -> a.getAuthority().toString()).collect(Collectors.joining(", "));
     }
 }

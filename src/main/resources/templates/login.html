@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link th:href="@{/css/login.css}" rel="stylesheet" />
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
+            
+                <div class="fadeIn first" style="margin: 20px">
+                    <img src="https://www.jaspersoft.com/sites/default/files/partner_logos/mitrais2.jpg" id="icon" alt="User Icon" />
+                </div>
+            
+                <!-- Login Form -->
+                <form th:action="@{/login-submit}" method="post">
+                    <div class="form-group">
+                        <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+                        <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+                    </div>
+                    <input type="submit" class="fadeIn fourth" value="Log In">
+                </form>
+
+            </div>
+        </div>
+    </body>
+</html>

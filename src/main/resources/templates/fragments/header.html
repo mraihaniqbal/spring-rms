@@ -7,11 +7,15 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
             </li>
+            
+            <!--ADMIN NAV-->
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Users</a>
             </li>
+            <!---->
+            
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
@@ -22,6 +26,9 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}" th:text="Logout"/>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

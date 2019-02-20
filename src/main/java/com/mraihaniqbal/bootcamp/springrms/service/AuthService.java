@@ -33,8 +33,6 @@ public class AuthService {
                     session.setAttribute("userId",userId);
                 }
 
-                session.setAttribute("role",user.getRole());
-
                 responseMap.setSuccess(true);
                 responseMap.setMessage("Login success!");
 
@@ -49,7 +47,11 @@ public class AuthService {
         return responseMap;
     }
 
-    public void logout(){
+    public ResponseMap logout(HttpSession session){
+        session.invalidate();
+        responseMap.setSuccess(true);
+        responseMap.setMessage("You have been logged out");
 
+        return responseMap;
     }
 }
