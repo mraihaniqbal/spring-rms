@@ -16,8 +16,7 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "userProfile")
     private User user;
 
     @NotBlank(message = "Please insert your first name")
