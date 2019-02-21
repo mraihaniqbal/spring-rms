@@ -21,7 +21,7 @@ public class User {
     @Column(length = 100)
     private String password;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     @NotNull
     @Valid

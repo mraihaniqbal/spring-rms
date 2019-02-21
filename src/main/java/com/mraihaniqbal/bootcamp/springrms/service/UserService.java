@@ -43,6 +43,7 @@ public class UserService {
     public ResponseMap add(User user){
 
         try{
+            user.setPassword("12345");
             userDao.save(user);
             responseMap.setSuccess(true);
             responseMap.setMessage("New user successfully added");

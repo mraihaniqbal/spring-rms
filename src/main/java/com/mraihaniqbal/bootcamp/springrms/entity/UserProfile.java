@@ -36,7 +36,7 @@ public class UserProfile {
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private String phone;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd MMMM yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     public Long getId() {

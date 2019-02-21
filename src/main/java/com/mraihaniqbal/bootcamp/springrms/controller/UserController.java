@@ -41,6 +41,8 @@ public class UserController {
                             RedirectAttributes redirectAttributes, Model model){
         //validate form
         if(bindingResult.hasErrors()){
+            System.out.println("test");
+            bindingResult.getAllErrors().forEach(System.out::println);
             model.addAttribute("response",new ResponseMap(false,"Please check again your form"));
             return "users/add";
         }
