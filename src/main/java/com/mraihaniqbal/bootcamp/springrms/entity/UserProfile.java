@@ -5,7 +5,8 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -19,10 +20,14 @@ public class UserProfile {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotBlank(message = "Please insert your first name")
     private String firstName;
+
+    @NotBlank(message = "Please insert your last name")
     private String lastName;
 
-    @Email
+    @NotBlank(message = "Please insert your email address")
+    @Email(message = "Your email is invalid. Please check again")
     private String email;
 
     @Column(columnDefinition = "text")

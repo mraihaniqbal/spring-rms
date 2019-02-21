@@ -1,7 +1,5 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
-import com.mraihaniqbal.bootcamp.springrms.enums.UserRoleEnum;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,8 +13,7 @@ public class Authorities {
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
     private List<User> user;
 
-    @Enumerated(value = EnumType.STRING)
-    private UserRoleEnum authority;
+    private String authority;
 
     public Long getId() {
         return id;
@@ -34,11 +31,11 @@ public class Authorities {
         this.user = user;
     }
 
-    public UserRoleEnum getAuthority() {
+    public String getAuthority() {
         return authority;
     }
 
-    public void setAuthority(UserRoleEnum authority) {
+    public void setAuthority(String authority) {
         this.authority = authority;
     }
 }

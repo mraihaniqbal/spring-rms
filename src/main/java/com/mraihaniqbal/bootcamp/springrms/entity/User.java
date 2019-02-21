@@ -1,6 +1,9 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +15,7 @@ public class User {
     private Long id;
 
     @Column(length = 50)
+    @NotBlank(message = "Please insert your username")
     private String username;
 
     @Column(length = 100)
@@ -19,6 +23,8 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "profile_id")
+    @NotNull
+    @Valid
     private UserProfile userProfile;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -98,6 +104,6 @@ public class User {
     }
 
     public String getAuthoritiesString(){
-        return authorities.stream().map(a -> a.getAuthority().toString()).collect(Collectors.joining(", "));
+        return authorities.stream().map(a -> a.getAuthority()).collect(Collectors.joining(", "));
     }
 }
