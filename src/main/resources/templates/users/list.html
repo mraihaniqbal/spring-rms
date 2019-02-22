@@ -26,7 +26,7 @@
                             <td th:text="${user.userProfile.firstName}"/>
                             <td th:text="${user.userProfile.lastName}"/>
                             <td th:text="${user.userProfile.email}"/>
-                            <td th:text="${user.authoritiesString}"/>
+                            <td th:text="${user.authority.displayName}"/>
                             <td><a th:href="@{/profile/{username}(username=${user.username})}" th:text="Profile"/></td>
                         </tr>
                     </tbody>

@@ -1,11 +1,12 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
+import com.mraihaniqbal.bootcamp.springrms.enums.Authority;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 public class User {
@@ -27,15 +28,10 @@ public class User {
     @Valid
     private UserProfile userProfile;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_authorities",
-            joinColumns = {
-                @JoinColumn(name = "authorities_id", nullable = false)
-            },
-            inverseJoinColumns = {
-                @JoinColumn(name = "user_id", nullable = false)
-            })
-    private List<Authorities> authorities;
+    @NotNull(message = "Please choose the user role.")
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "authorities")
+    private Authority authority;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_project",
@@ -95,15 +91,11 @@ public class User {
         this.projects = projects;
     }
 
-    public List<Authorities> getAuthorities() {
-        return authorities;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setAuthorities(List<Authorities> authorities) {
-        this.authorities = authorities;
-    }
-
-    public String getAuthoritiesString(){
-        return authorities.stream().map(a -> a.getAuthority()).collect(Collectors.joining(", "));
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 }

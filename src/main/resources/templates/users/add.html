@@ -20,6 +20,13 @@
                         <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback"/>
                     </div>
                     <div class="form-group">
+                        <label>Role *</label>
+                        <select class="form-control" th:field="*{authority}">
+                            <option th:each="role : ${T(com.mraihaniqbal.bootcamp.springrms.enums.Authority).values()}"
+                                    th:value="${role}" th:text="${role.displayName}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>First Name *</label>
                         <input th:field="*{userProfile.firstName}" type="text" class="form-control"
                                placeholder="First Name" th:errorclass="is-invalid">

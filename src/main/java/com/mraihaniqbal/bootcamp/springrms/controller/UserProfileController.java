@@ -21,7 +21,6 @@ public class UserProfileController {
 
     @GetMapping("/{username}")
     public String view(Model model, @PathVariable String username){
-
         model.addAttribute("profile", userProfileService.findByUsername(username));
         return "users/profile/index";
     }

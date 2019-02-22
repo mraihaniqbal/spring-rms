@@ -1,9 +1,11 @@
 package com.mraihaniqbal.bootcamp.springrms.controller;
 
 import com.mraihaniqbal.bootcamp.springrms.entity.User;
+import com.mraihaniqbal.bootcamp.springrms.enums.Authority;
 import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import com.mraihaniqbal.bootcamp.springrms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -25,7 +29,8 @@ public class UserController {
     }
 
     @GetMapping("user/list")
-    public String list(Model model){
+    public String list(Model model, Principal principal){
+        System.out.println(principal.getName());
         model.addAttribute("users", userService.findAll());
         return "users/list";
     }
@@ -41,8 +46,6 @@ public class UserController {
                             RedirectAttributes redirectAttributes, Model model){
         //validate form
         if(bindingResult.hasErrors()){
-            System.out.println("test");
-            bindingResult.getAllErrors().forEach(System.out::println);
             model.addAttribute("response",new ResponseMap(false,"Please check again your form"));
             return "users/add";
         }
