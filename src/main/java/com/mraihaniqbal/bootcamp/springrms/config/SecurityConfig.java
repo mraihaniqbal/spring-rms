@@ -31,8 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
             .usersByUsernameQuery("select username, password, true from user where username=?")
             .authoritiesByUsernameQuery(
-                    "select u.username, a.authority from user u inner join user_authorities ua on(u.id=ua.user_id) " +
-                            "inner join authorities a on(ua.authorities_id=a.id) where u.username=?");
+                    "select username, authorities from user where username=?");
     }
 
     @Override
