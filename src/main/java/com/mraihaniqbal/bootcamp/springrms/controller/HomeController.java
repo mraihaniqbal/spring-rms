@@ -1,17 +1,21 @@
 package com.mraihaniqbal.bootcamp.springrms.controller;
 
+import com.mraihaniqbal.bootcamp.springrms.entity.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 
     @GetMapping("/")
-    public String gate(HttpSession session){
+    public String gate(Authentication auth){
 
-        return "redirect:user/list";
+        if(User.isAdmin(auth)){
+            return "redirect:user/list";
+        }
+
+        return "redirect:project/list";
     }
 
 }

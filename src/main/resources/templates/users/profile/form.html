@@ -1,9 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/main}">
     <head>
         <title>Edit Profile</title>
     </head>
     <body>
-        
+        <div layout:fragment="content" class="row">
+            <form th:action="@{/user/add}" method="post" th:object="${profile}" style="width: 100%">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>First Name *</th>
+                            <td>
+                                <input th:field="*{firstName}" type="text" class="form-control" placeholder="First Name"
+                                       th:errorclass="is-invalid">
+                                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="invalid-feedback"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Last Name *</th>
+                            <td>
+                                <input th:field="*{lastName}" type="text" class="form-control" placeholder="Last Name"
+                                       th:errorclass="is-invalid">
+                                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email Address</th>
+                            <td>
+                                <input th:field="*{email}" type="text" class="form-control" placeholder="Email"
+                                       th:errorclass="is-invalid">
+                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td><textarea th:field="*{address}" class="form-control" /></td>
+                        </tr>
+                        <tr>
+                            <th>Phone Number</th>
+                            <td>
+                                <input th:field="*{phone}" type="text" class="form-control" placeholder="Phone Number">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td><input th:field="*{birthDate}" type="date" class="form-control" placeholder="Date of Birth"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><button class="btn btn-dark" type="submit">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

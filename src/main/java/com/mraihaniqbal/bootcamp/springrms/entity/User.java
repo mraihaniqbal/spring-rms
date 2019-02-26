@@ -1,6 +1,7 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
 import com.mraihaniqbal.bootcamp.springrms.enums.Authority;
+import org.springframework.security.core.Authentication;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -97,5 +98,13 @@ public class User {
 
     public void setAuthority(Authority authority) {
         this.authority = authority;
+    }
+
+    public static boolean isAdmin(Authentication authentication){
+        if(!authentication.getAuthorities().isEmpty()){
+            return authentication.getAuthorities().contains(Authority.ROLE_ADMIN.toString());
+        }
+
+        return false;
     }
 }

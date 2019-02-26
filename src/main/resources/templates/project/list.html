@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/main}">
+    <head>
+        <title>User List</title>
+    </head>
+    <body>
+        <div layout:fragment="content" class="row">
+            <h3>Project List</h3>
+            <hr/>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Username</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.username}"/>
+                            <td th:text="${user.userProfile.firstName}"/>
+                            <td th:text="${user.userProfile.lastName}"/>
+                            <td th:text="${user.userProfile.email}"/>
+                            <td th:text="${user.authority.displayName}"/>
+                            <td><a th:href="@{/profile/{username}(username=${user.username})}" th:text="Profile"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div><a th:href="@{add}" class="btn btn-dark" th:text="Add"/></div>
+            </div>
+        </div>
+    </body>
+</html>
