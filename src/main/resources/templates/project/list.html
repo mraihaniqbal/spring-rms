@@ -25,7 +25,7 @@
                             <td th:text="${project.clientName}"/>
                             <td th:text="${project.startDate}"/>
                             <td th:text="${project.endDate}"/>
-                            <td><a th:href="@{/detail/{id}(id=${project.id})}" th:text="Detail"/></td>
+                            <td><a th:href="@{detail/{id}(id=${project.id})}" th:text="Detail"/></td>
                         </tr>
                     </tbody>
                 </table>

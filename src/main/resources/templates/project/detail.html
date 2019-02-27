@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/layouts/main}">
+    <head>
+         <title th:text="${project.name} + ' Detail'"/>
+    </head>
+    <body>
+        <div layout:fragment="content" class="row">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${project.name}"/>
+                    </tr>
+                    <tr>
+                        <th>Client Name</th>
+                        <td th:text="${project.clientName}"/>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td th:text="${project.startDate}"/>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td th:text="${project.endDate}"/>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Project Member</h3>
+            <hr/>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <th>Name</th>
+                    <th>Role</th>
+                </thead>
+                <tbody>
+                    <tr th:each="member : ${project.user}">
+                        <td th:text="${member.userProfile.firstName} +' '+ ${member.userProfile.lastName}"/>
+                        <td th:text="${member.authority.displayName}"/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
