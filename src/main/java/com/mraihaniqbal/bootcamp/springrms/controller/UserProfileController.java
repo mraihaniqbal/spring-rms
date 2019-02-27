@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
@@ -33,10 +34,11 @@ public class UserProfileController {
 
     @GetMapping("/{username}/edit")
     public String edit(Model model, @PathVariable String username, Principal principal,
-                       Authentication auth){
+                       HttpServletRequest request){
 
         //User only allowed to update of itself, except Admin
-        if(!User.isAdmin(auth) && !username.equals(principal.getName())){
+        if(!request.isUserInRole(Authority.ROLE_ADMIN.toString())
+                && !username.equals(principal.getName())){
             return "404";
         }
 

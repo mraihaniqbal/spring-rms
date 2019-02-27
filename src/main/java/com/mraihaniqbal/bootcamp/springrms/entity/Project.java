@@ -1,6 +1,9 @@
 package com.mraihaniqbal.bootcamp.springrms.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -11,13 +14,19 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Please fill the project name")
     private String name;
+
     @Column(name = "client_name")
+    @NotBlank(message = "Please fill the client name")
     private String clientName;
 
     @Column(name = "start_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private Date startDate;
+
     @Column(name = "end_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private Date endDate;
 
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.mraihaniqbal.bootcamp.springrms.config;
 
+import com.mraihaniqbal.bootcamp.springrms.entity.Project;
 import com.mraihaniqbal.bootcamp.springrms.entity.User;
 import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
@@ -22,6 +23,11 @@ public class RmsConfig {
     @Bean
     public User user(){
         return new User();
+    }
+
+    @Bean
+    public Project project(){
+        return new Project();
     }
 
     @Bean

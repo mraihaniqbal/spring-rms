@@ -4,6 +4,7 @@ public class ResponseMap {
 
     private boolean success;
     private String message;
+    private Long returnedId;
 
     public ResponseMap(boolean success, String message) {
         this.success = success;
@@ -24,5 +25,13 @@ public class ResponseMap {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Long getReturnedId() {
+        return returnedId;
+    }
+
+    public void setReturnedId(Long returnedId) {
+        this.returnedId = returnedId;
     }
 }
