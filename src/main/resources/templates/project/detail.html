@@ -46,15 +46,15 @@
                     <thead class="thead-dark">
                         <th>Name</th>
                         <th>Role</th>
-                        <th>Remove</th>
+                        <th th:if="${#request.isUserInRole('ROLE_PM')}"></th>
                     </thead>
                     <tbody>
                         <tr th:each="member : ${project.users}">
                             <td th:text="${member.userProfile.firstName} +' '+ ${member.userProfile.lastName}"/>
                             <td th:text="${member.authority.displayName}"/>
-                            <td>
-                                <button th:href="@{/project/{id}/remove-member/{userId}(id=${project.id},userId=${member.id})}"
-                                        class="btn btn-danger">-</button>
+                            <td th:if="${#request.isUserInRole('ROLE_PM')}">
+                                <a th:href="@{/project/{id}/remove-member/{userId}(id=${project.id},userId=${member.id})}"
+                                        class="btn btn-danger">Remove</a>
                             </td>
                         </tr>
                     </tbody>

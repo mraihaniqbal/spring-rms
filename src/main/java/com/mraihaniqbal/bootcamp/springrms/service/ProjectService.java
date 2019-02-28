@@ -51,8 +51,9 @@ public class ProjectService {
         return responseMap;
     }
 
-    public ResponseMap addMember(Project project, String username){
+    public ResponseMap addMember(Long id, String username){
         User user = userService.findByUsername(username);
+        Project project = findById(id);
 
         if(project == null || user == null){
             responseMap.setMessage("Data Not Found");
@@ -71,6 +72,32 @@ public class ProjectService {
 
             responseMap.setSuccess(true);
             responseMap.setMessage("Add Member Success");
+        }catch (DataAccessException e){
+            responseMap.setSuccess(false);
+            responseMap.setMessage("Something wrong. Please contact your administrator.");
+        }
+
+        return responseMap;
+    }
+
+    public ResponseMap removeMember(Long id, Long userId){
+        User user = userService.findById(userId);
+        Project project = findById(id);
+
+        if(project == null || user == null){
+            responseMap.setMessage("Data Not Found");
+            responseMap.setSuccess(false);
+            return responseMap;
+        }
+
+        try{
+            List<User> users = project.getUsers();
+            users.remove(user);
+            project.setUsers(users);
+            projectDao.save(project);
+
+            responseMap.setSuccess(true);
+            responseMap.setMessage("Remove Member Success");
         }catch (DataAccessException e){
             responseMap.setSuccess(false);
             responseMap.setMessage("Something wrong. Please contact your administrator.");

@@ -68,8 +68,6 @@ public class ProjectController {
 
         //validate form
         if(bindingResult.hasErrors()){
-            System.out.println("hai");
-            bindingResult.getAllErrors().forEach(System.out::println);
             model.addAttribute("response", new ResponseMap(false,"Please check again your form"));
             model.addAttribute("action",action);
             return "/project/form";
@@ -101,19 +99,17 @@ public class ProjectController {
 
     @PostMapping("/{id}/add-member")
     public String addMember(@PathVariable Long id, String username, RedirectAttributes redir){
-        Project project = projectService.findById(id);
-        ResponseMap responseMap = projectService.addMember(project,username);
-
-        if(!responseMap.isSuccess()){
-            redir.addFlashAttribute("message",responseMap.getMessage());
-            return "project/detail";
-        }
+        ResponseMap responseMap = projectService.addMember(id,username);
+        redir.addFlashAttribute("message",responseMap.getMessage());
 
         return "redirect:/project/detail/"+id;
     }
 
     @GetMapping("/{id}/remove-member/{userId}")
     public String removeMember(@PathVariable Long id, @PathVariable Long userId, RedirectAttributes redir){
+        ResponseMap responseMap = projectService.removeMember(id,userId);
+        redir.addFlashAttribute("message",responseMap.getMessage());
+
         return "redirect:/project/detail/"+id;
     }
 
