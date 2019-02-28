@@ -24,4 +24,9 @@ public class HomeController {
         return "redirect:project/list/"+auth.getName();
     }
 
+    @GetMapping("/accessDenied")
+    public String accessDenied(){
+        return "403";
+    }
+
 }

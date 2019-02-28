@@ -36,14 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/profile/**").permitAll()
-                .antMatchers("user/**").hasAnyRole("ADMIN")
-                .antMatchers("project/**").hasAnyRole("PROGRAMMER","PM")
+                .antMatchers("/user/**").hasAnyRole("ADMIN")
+                .antMatchers("/project/**").hasAnyRole("PROGRAMMER","PM")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login-submit")
-                    .permitAll();
+                    .permitAll()
+        .and().exceptionHandling().accessDeniedPage("/accessDenied");
 
     }
 }
