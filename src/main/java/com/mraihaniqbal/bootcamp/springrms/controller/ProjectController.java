@@ -1,6 +1,7 @@
 package com.mraihaniqbal.bootcamp.springrms.controller;
 
 import com.mraihaniqbal.bootcamp.springrms.entity.Project;
+import com.mraihaniqbal.bootcamp.springrms.entity.User;
 import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import com.mraihaniqbal.bootcamp.springrms.service.ProjectService;
 import com.mraihaniqbal.bootcamp.springrms.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/project")
@@ -34,13 +36,26 @@ public class ProjectController {
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("projects", projectService.getList());
+        model.addAttribute("title","Project List");
         return "project/list";
     }
 
     @GetMapping("/list/{username}")
-    public String listByUsername(Model model, @PathVariable String username){
-        model.addAttribute("user",userService.findByUsername(username));
+    public String listByUsername(Model model, @PathVariable String username, Principal principal){
+        User user = userService.findByUsername(username);
+        if(user == null){
+            return "404";
+        }
+
+        String name = user.getUserProfile().getFirstName()+"'s";
+        if(username.equals(principal.getName())){
+            name = "My";
+        }
+
+        model.addAttribute("user",user);
         model.addAttribute("projects", projectService.getList(username));
+        model.addAttribute("title",name+" Project List");
+
         return "project/list";
     }
 
