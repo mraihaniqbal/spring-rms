@@ -34,14 +34,7 @@ public class User {
     @Column(name = "authorities")
     private Authority authority;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_project",
-            joinColumns = {
-                @JoinColumn(name = "project_id", nullable = false)
-            },
-            inverseJoinColumns = {
-                @JoinColumn(name = "user_id", nullable = false)
-            })
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Project> projects;
 
     public User() {

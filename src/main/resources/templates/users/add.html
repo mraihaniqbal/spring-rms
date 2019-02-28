@@ -11,7 +11,7 @@
                 <hr/>
             </div>
             <div class="row col-lg-8">
-                <form th:action="@{/user/add}" method="post" th:object="${user}" style="width: 100%">
+                <form th:action="@{/users/add}" method="post" th:object="${users}" style="width: 100%">
                     <div class="alert alert-danger" th:if="${response != null}" th:text="${response.message}"/>
                     <div class="form-group">
                         <label>Username *</label>

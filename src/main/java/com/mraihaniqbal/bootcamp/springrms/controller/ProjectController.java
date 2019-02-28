@@ -94,22 +94,27 @@ public class ProjectController {
             return "404";
         }
         model.addAttribute("project",project);
+        model.addAttribute("users",userService.findByUsernameNotIn(project.getUsers()));
+
         return "project/detail";
     }
 
-    @GetMapping("/detail/{id}/add-member")
-    public String addMember(Model model, @PathVariable Long id){
+    @PostMapping("/{id}/add-member")
+    public String addMember(@PathVariable Long id, String username, RedirectAttributes redir){
         Project project = projectService.findById(id);
-        if(project == null){
-            return "404";
+        ResponseMap responseMap = projectService.addMember(project,username);
+
+        if(!responseMap.isSuccess()){
+            redir.addFlashAttribute("message",responseMap.getMessage());
+            return "project/detail";
         }
-        model.addAttribute("project",project);
-        return "project/addMember";
+
+        return "redirect:/project/detail/"+id;
     }
 
-    @PostMapping("/detail/{id}/add-member")
-    public String submitAddMember(@PathVariable Long id){
-        return "redirect:/detail/"+id;
+    @GetMapping("/{id}/remove-member/{userId}")
+    public String removeMember(@PathVariable Long id, @PathVariable Long userId, RedirectAttributes redir){
+        return "redirect:/project/detail/"+id;
     }
 
 

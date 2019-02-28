@@ -21,13 +21,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user : ${users}">
-                            <td th:text="${user.username}"/>
-                            <td th:text="${user.userProfile.firstName}"/>
-                            <td th:text="${user.userProfile.lastName}"/>
-                            <td th:text="${user.userProfile.email}"/>
-                            <td th:text="${user.authority.displayName}"/>
-                            <td><a th:href="@{/profile/{username}(username=${user.username})}" th:text="Profile"/></td>
+                        <tr th:each="users : ${users}">
+                            <td th:text="${users.username}"/>
+                            <td th:text="${users.userProfile.firstName}"/>
+                            <td th:text="${users.userProfile.lastName}"/>
+                            <td th:text="${users.userProfile.email}"/>
+                            <td th:text="${users.authority.displayName}"/>
+                            <td><a th:href="@{/profile/{username}(username=${users.username})}" th:text="Profile"/></td>
                         </tr>
                     </tbody>
                 </table>

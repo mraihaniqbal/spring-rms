@@ -29,8 +29,15 @@ public class Project {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
-    private List<User> user;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_project",
+            inverseJoinColumns = {
+                    @JoinColumn(name = "project_id", nullable = false)
+            },
+            joinColumns = {
+                    @JoinColumn(name = "user_id", nullable = false)
+            })
+    private List<User> users;
 
     public Long getId() {
         return id;
@@ -72,11 +79,11 @@ public class Project {
         this.endDate = endDate;
     }
 
-    public List<User> getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

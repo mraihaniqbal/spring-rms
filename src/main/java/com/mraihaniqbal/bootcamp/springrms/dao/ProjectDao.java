@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ProjectDao extends JpaRepository<Project,Long> {
 
-    List<Project> findByUser_Username(String username);
+    List<Project> findByUsers_Username(String username);
 
 }

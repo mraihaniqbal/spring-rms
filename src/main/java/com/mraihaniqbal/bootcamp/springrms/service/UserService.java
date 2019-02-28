@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -38,6 +39,18 @@ public class UserService {
 
     public User findByUsername(String username){
         return userDao.findByUsername(username);
+    }
+
+    public List<User> findByUsernameNotIn(List<User> users){
+        System.out.println(users.size());
+        if(users.size() > 0){
+            List<String> usernames = users.stream().map(User::getUsername).collect(Collectors.toList());
+            System.out.println(usernames.size());
+            usernames.forEach(System.out::println);
+            return userDao.findByUsernameNotIn(usernames);
+        }
+
+        return findAll();
     }
 
     public ResponseMap add(User user){

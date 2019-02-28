@@ -5,42 +5,61 @@
          <title th:text="${project.name} + ' Detail'"/>
     </head>
     <body>
-        <div layout:fragment="content" class="row">
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
+        <div layout:fragment="content" >
+            <div class="row col-lg-12">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td th:text="${project.name}"/>
+                        </tr>
+                        <tr>
+                            <th>Client Name</th>
+                            <td th:text="${project.clientName}"/>
+                        </tr>
+                        <tr>
+                            <th>Start Date</th>
+                            <td th:text="${project.startDate}"/>
+                        </tr>
+                        <tr>
+                            <th>End Date</th>
+                            <td th:text="${project.endDate}"/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row col-lg-12">
+                <h3>Project Member</h3>
+                <div style="margin-left: 20px" th:if="${#request.isUserInRole('ROLE_PM')}">
+                    <form th:action="@{/project/{id}/add-member(id=${project.id})}" method="post">
+                        <div class="form-inline">
+                            <select name="username" class="form-control" style="width: 150px">
+                                <option th:each="users : ${users}" th:value="${users.username}"
+                                        th:text="${users.userProfile.fullName}">
+                                </option>
+                            </select>
+                            <button type="submit" class="btn btn-dark">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
                         <th>Name</th>
-                        <td th:text="${project.name}"/>
-                    </tr>
-                    <tr>
-                        <th>Client Name</th>
-                        <td th:text="${project.clientName}"/>
-                    </tr>
-                    <tr>
-                        <th>Start Date</th>
-                        <td th:text="${project.startDate}"/>
-                    </tr>
-                    <tr>
-                        <th>End Date</th>
-                        <td th:text="${project.endDate}"/>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Project Member</h3>
-            <hr/>
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
-                    <th>Name</th>
-                    <th>Role</th>
-                </thead>
-                <tbody>
-                    <tr th:each="member : ${project.user}">
-                        <td th:text="${member.userProfile.firstName} +' '+ ${member.userProfile.lastName}"/>
-                        <td th:text="${member.authority.displayName}"/>
-                    </tr>
-                </tbody>
-            </table>
+                        <th>Role</th>
+                        <th>Remove</th>
+                    </thead>
+                    <tbody>
+                        <tr th:each="member : ${project.users}">
+                            <td th:text="${member.userProfile.firstName} +' '+ ${member.userProfile.lastName}"/>
+                            <td th:text="${member.authority.displayName}"/>
+                            <td>
+                                <button th:href="@{/project/{id}/remove-member/{userId}(id=${project.id},userId=${member.id})}"
+                                        class="btn btn-danger">-</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>
