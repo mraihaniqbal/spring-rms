@@ -13,6 +13,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String gate(Authentication auth, HttpServletRequest request){
+        System.out.println(auth.getName());
 
         if(request.isUserInRole(Authority.ROLE_ADMIN.toString())){
             return "redirect:user/list";

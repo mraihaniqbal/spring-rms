@@ -3,12 +3,15 @@ package com.mraihaniqbal.bootcamp.springrms.controller;
 import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import com.mraihaniqbal.bootcamp.springrms.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -42,9 +45,11 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session, RedirectAttributes redirectAttributes){
-        ResponseMap responseMap = authService.logout(session);
-        redirectAttributes.addAttribute("message", responseMap.getMessage());
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes, Authentication auth,
+                         HttpServletRequest request, HttpServletResponse response) {
+
+        ResponseMap responseMap = authService.logout(session, auth, request, response);
+        redirectAttributes.addFlashAttribute("message", responseMap.getMessage());
 
         return "redirect:/login";
     }

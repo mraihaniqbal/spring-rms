@@ -3,8 +3,12 @@ package com.mraihaniqbal.bootcamp.springrms.service;
 import com.mraihaniqbal.bootcamp.springrms.entity.User;
 import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service
@@ -47,8 +51,13 @@ public class AuthService {
         return responseMap;
     }
 
-    public ResponseMap logout(HttpSession session){
+    public ResponseMap logout(HttpSession session, Authentication auth, HttpServletRequest req, HttpServletResponse res){
         session.invalidate();
+
+        if(auth != null){
+            new SecurityContextLogoutHandler().logout(req, res, auth);
+        }
+
         responseMap.setSuccess(true);
         responseMap.setMessage("You have been logged out");
 

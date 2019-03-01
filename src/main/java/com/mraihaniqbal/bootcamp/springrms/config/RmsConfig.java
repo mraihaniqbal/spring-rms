@@ -6,18 +6,19 @@ import com.mraihaniqbal.bootcamp.springrms.pojo.ResponseMap;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-
-import javax.sql.DataSource;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 public class RmsConfig {
 
-    private Environment env;
-
     @Bean
     public LayoutDialect layoutDialect(){
         return new LayoutDialect();
+    }
+
+    @Bean
+    public SpringSecurityDialect springSecurityDialect(){
+        return new SpringSecurityDialect();
     }
 
     @Bean
