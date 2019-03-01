@@ -32,6 +32,9 @@
                         <th>Date of Birth</th>
                         <td th:text="${profile.birthDate}"/>
                     </tr>
+                    <tr>
+                        <td colspan="2"><a th:href="@{/profile/{username}/edit(username=${username})}" class="btn btn-dark">Edit</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

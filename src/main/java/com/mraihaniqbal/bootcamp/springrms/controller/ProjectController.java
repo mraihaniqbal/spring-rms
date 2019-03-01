@@ -44,7 +44,7 @@ public class ProjectController {
     public String listByUsername(Model model, @PathVariable String username, Principal principal){
         User user = userService.findByUsername(username);
         if(user == null){
-            return "404";
+            return "error/404";
         }
 
         String name = user.getUserProfile().getFirstName()+"'s";
@@ -70,7 +70,7 @@ public class ProjectController {
     public String edit(Model model, @PathVariable Long id){
         Project project = projectService.findById(id);
         if(project == null){
-            return "404";
+            return "error/404";
         }
         model.addAttribute("project",project);
         model.addAttribute("action","edit");
@@ -104,7 +104,7 @@ public class ProjectController {
     public String detail(Model model, @PathVariable Long id){
         Project project = projectService.findById(id);
         if(project == null){
-            return "404";
+            return "error/404";
         }
         model.addAttribute("project",project);
         model.addAttribute("users",userService.findByUsernameNotIn(project.getUsers()));
